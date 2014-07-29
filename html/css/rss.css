@@ -1,0 +1,25 @@
+.rss-header {
+	
+    color: #FFFFFF;
+    background-color: #0B3861;
+ }
+
+.feed-input-row {
+    color: #5882FA;
+    background-color : #424242;   
+}
+
+.feed-search-input {   
+    float:right;
+}
+
+.feed-title {
+color: grey;
+font-family: fantasy;
+font-size: large;
+}
+
+.feed-description {
+
+font-size: small;
+}
