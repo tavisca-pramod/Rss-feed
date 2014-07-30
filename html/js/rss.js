@@ -1,17 +1,11 @@
 ﻿
-//to be reused while fetching images
-var token = 'jvrkbnfg4twkahlqc0t3gf3g';
-//to create car specific html
-var isCarSelected = true;
-
 var goBtn = document.getElementById("goBtn");
 
-var feedUrl = document.getElementById("feedUrl");
-
 goBtn.onclick = function () {
-    var url = document.getElementById("rssFeedOptions");
 
-    url = 'http://googlefeed.appacitive.com/?q=http://timesofindia.feedsportal.com/c/33039/f/533982/index.rss';
+    var feedUrl = document.getElementById("feedUrl");
+
+    var url = 'http://googlefeed.appacitive.com/?q=' + feedUrl.value;
 
     var xmlHttpRequest = new XMLHttpRequest();
 
@@ -37,8 +31,7 @@ function createFeedObject(feedJson) {
     var feed = new RssReader.Feed(feedJson.author, feedJson.title, feedJson.description,
             feedJson.feedUrl, feedJson.link);
 
-    for (i = 0, totalEntries = feedJson.entries.length; i < totalEntries; i++)
-    {
+    for (i = 0, totalEntries = feedJson.entries.length; i < totalEntries; i++) {
         var entry = new RssReader.FeedEntry(feedJson.entries[i].content, feedJson.entries[i].contentSnippet,
             feedJson.entries[i].link, feedJson.entries[i].publishedDate, feedJson.entries[i].title);
 
@@ -48,47 +41,49 @@ function createFeedObject(feedJson) {
     createHtmlFeeds(feed);
 }
 
-function createHtmlFeeds(feed)
-{
-        var container = document.getElementsByClassName('container')[0];
-        var feedTitleRow = document.createElement('div');
+function createHtmlFeeds(feed) {
+    var container = document.getElementsByClassName('container')[0];
+    var feedTitleRow = document.createElement('div');
 
-        feedTitleRow.className = "row well"
+    feedTitleRow.className = "row well"
 
-        var feedTitle = document.createElement('div');
-        feedTitle.id = 'feedTitle';
-        feedTitle.innerText = feed.title;
-        feedTitle.className = 'feed-title';
-    
-        var feedDescription = document.createElement('div');
-        feedDescription.id = 'feedDescription'; 
-        feedDescription.className = "feed-description";
-        feedDescription.innerText = feed.description;
+    var feedTitle = document.createElement('div');
+    feedTitle.id = 'feedTitle';
+    feedTitle.innerText = feed.title;
+    feedTitle.className = 'feed-title';
 
-        feedTitleRow.appendChild(feedTitle);
-        feedTitleRow.appendChild(feedDescription);
+    var feedDescription = document.createElement('div');
+    feedDescription.id = 'feedDescription';
+    feedDescription.className = "feed-description";
+    feedDescription.innerText = feed.description;
 
-        container.appendChild(feedTitleRow);
+    feedTitleRow.appendChild(feedTitle);
+    feedTitleRow.appendChild(feedDescription);
 
-        for (i = 0, totalEntries = feed.feedEntries.length; i < totalEntries; i++)
-        {
-            var entry = feed.feedEntries[i];
-            var feedEntry = document.createElement('div');
-            feedEntry.className = "row well"
-            var feedEntryTitleRow = document.createElement('div');
+    container.appendChild(feedTitleRow);
+    createHtmlFeedEntries(feed, container);
+}
 
-                var feedEntryTitle = document.createElement('a');
-                feedEntryTitle.innerText = entry.title;
-                feedEntryTitle.href = entry.link;
+function createHtmlFeedEntries(feed, container) {
+    for (i = 0, totalEntries = feed.feedEntries.length; i < totalEntries; i++) {
+        var entry = feed.feedEntries[i];
+        var feedEntry = document.createElement('div');
+        feedEntry.className = "row well"
+        var feedEntryTitleRow = document.createElement('div');
 
-                var feedEntryPublishDate = document.createElement('span');
-                feedEntryPublishDate.innerText = entry.publishedDate;
+        var feedEntryTitle = document.createElement('a');
+        feedEntryTitle.innerText = entry.title;
+        feedEntryTitle.href = entry.link;
 
-                feedEntryTitleRow.appendChild(feedEntryTitle);
-                feedEntryTitleRow.appendChild(feedEntryPublishDate);
+        var feedEntryPublishDate = document.createElement('span');
+        feedEntryPublishDate.innerText = entry.publishedDate;
+        feedEntryPublishDate.className = 'feed-float-right';
 
-            var feedEntryContent = document.createElement('div');
-            feedEntryContent.innerText = entry.contentSnippet;
+        feedEntryTitleRow.appendChild(feedEntryTitle);
+        feedEntryTitleRow.appendChild(feedEntryPublishDate);
+
+        var feedEntryContent = document.createElement('div');
+        feedEntryContent.innerText = entry.contentSnippet;
 
         feedEntry.appendChild(feedEntryTitleRow);
         feedEntry.appendChild(feedEntryContent);
