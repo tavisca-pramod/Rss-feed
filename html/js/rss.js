@@ -1,9 +1,6 @@
-﻿
-var goBtn = document.getElementById("goBtn");
+﻿var feedUrl = document.getElementById("feedUrl");
 
-goBtn.onclick = function () {
-
-    var feedUrl = document.getElementById("feedUrl");
+var processRequest = function () {
 
     var url = 'http://googlefeed.appacitive.com/?q=' + feedUrl.value;
 
@@ -25,6 +22,13 @@ goBtn.onclick = function () {
     xmlHttpRequest.send();
 }
 
+var checkSubmitEvent = function (e) {
+    if (e.keyCode == 13) {
+        processRequest();
+    }
+}
+
+feedUrl.onkeypress = checkSubmitEvent;
 
 function createFeedObject(feedJson) {
 
@@ -68,7 +72,8 @@ function createHtmlFeedEntries(feed, container) {
     for (i = 0, totalEntries = feed.feedEntries.length; i < totalEntries; i++) {
         var entry = feed.feedEntries[i];
         var feedEntry = document.createElement('div');
-        feedEntry.className = "row well"
+        feedEntry.className = "row well";
+        feedEntry.className += (i % 2 == 0) ? ' entry-bg-brown' : ' entry-bg-blue';
         var feedEntryTitleRow = document.createElement('div');
 
         var feedEntryTitle = document.createElement('a');
