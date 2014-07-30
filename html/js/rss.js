@@ -53,13 +53,13 @@ function createHtmlFeeds(feed) {
 
     var feedTitle = document.createElement('div');
     feedTitle.id = 'feedTitle';
-    feedTitle.innerText = feed.title;
+    feedTitle.textContent= feed.title;
     feedTitle.className = 'feed-title';
 
     var feedDescription = document.createElement('div');
     feedDescription.id = 'feedDescription';
     feedDescription.className = "feed-description";
-    feedDescription.innerText = feed.description;
+    feedDescription.textContent = feed.description;
 
     feedTitleRow.appendChild(feedTitle);
     feedTitleRow.appendChild(feedDescription);
@@ -77,18 +77,18 @@ function createHtmlFeedEntries(feed, container) {
         var feedEntryTitleRow = document.createElement('div');
 
         var feedEntryTitle = document.createElement('a');
-        feedEntryTitle.innerText = entry.title;
+        feedEntryTitle.textContent = entry.title;
         feedEntryTitle.href = entry.link;
 
         var feedEntryPublishDate = document.createElement('span');
-        feedEntryPublishDate.innerText = entry.publishedDate;
+        feedEntryPublishDate.textContent = entry.publishedDate;
         feedEntryPublishDate.className = 'feed-float-right';
 
         feedEntryTitleRow.appendChild(feedEntryTitle);
         feedEntryTitleRow.appendChild(feedEntryPublishDate);
 
         var feedEntryContent = document.createElement('div');
-        feedEntryContent.innerText = entry.contentSnippet;
+        feedEntryContent.textContent = entry.contentSnippet;
 
         feedEntry.appendChild(feedEntryTitleRow);
         feedEntry.appendChild(feedEntryContent);
