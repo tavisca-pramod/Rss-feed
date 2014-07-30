@@ -2,11 +2,14 @@
 	
     color: #FFFFFF;
     background-color: #0B3861;
- }
+    margin-bottom: 0px;
+padding: 8px;
+}
 
 .feed-input-row {
     color: #5882FA;
     background-color : #424242;   
+    padding: 8px;
 }
 
 .feed-float-right{   
